@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 #define SCREEN_WIDTH 480
-#define SCREEN_HEIGHT 360
+#define SCREEN_HEIGHT 368
 #define BLOCK_SIDE 16
 
 
@@ -76,6 +76,9 @@ int main(){
     if(!dead){
       time_new = SDL_GetTicks();
       if(time_new - time_old > 1000/20){
+        if(player_x < 0 || player_y < 0
+          || player_x >= world_width || player_y >= world_height)
+          dead = true;
 
         switch(temp_direction){
           case 0:
@@ -128,6 +131,16 @@ int main(){
             player[player_y][player_x][1] = false;
             player[player_y][player_x][0] = true;
         }
+        if(dead){
+          if(player_x < 0)
+            player_x = 0;
+          if(player_y < 0)
+            player_y = 0;
+          if(player_x >= world_width)
+            player_x = world_width - 1;
+          if(player_y >= world_height)
+            player_y = world_height - 1;
+        }
 
         temp_x = player_x;
         temp_y = player_y;
@@ -155,11 +168,6 @@ int main(){
             apple_y = rand() % world_height;
           }
         }
-
-        if(!dead)
-          if(player_x < 1 || player_y < 1
-            || player_x >= world_width - 1 || player_y >= world_height - 1)
-            dead = true;
 
         time_old = SDL_GetTicks();
       }
