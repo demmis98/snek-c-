@@ -177,17 +177,17 @@ int main(){
     //render
     SDL_SetRenderDrawColor(renderer, 64, 0, 64, 255);
     SDL_RenderClear(renderer);
-
-    if(!dead)
-      SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-    else
-      SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
     
     temp_x = player_x;
     temp_y = player_y;
     for(int i = 0; i < player_l; i++){
       temp_rect.x = temp_x * BLOCK_SIDE;
       temp_rect.y = temp_y * BLOCK_SIDE;
+      int temp_color = i * (255 / player_l);
+      if(!dead)
+        SDL_SetRenderDrawColor(renderer, 255, temp_color, 255, 255);
+      else
+        SDL_SetRenderDrawColor(renderer, temp_color, temp_color, 255, 255);
       SDL_RenderFillRect(renderer, &temp_rect);
         if(player[temp_y][temp_x][1])
           if(player[temp_y][temp_x][0])
