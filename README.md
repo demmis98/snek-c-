@@ -1,0 +1,5 @@
+moverse:
+-flechitas
+
+resetear:
+-r
