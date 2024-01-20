@@ -98,39 +98,40 @@ int main(){
               direction = temp_direction;
         }
 
-        switch(direction){
-          case 0:
-            player_y--;
-            if(player[player_y][player_x][2])
-              dead = true;
-            player[player_y][player_x][2] = true;
-            player[player_y][player_x][1] = true;
-            player[player_y][player_x][0] = true;
-            break;
-          case 1:
-            player_x++;
-            if(player[player_y][player_x][2])
-              dead = true;
-            player[player_y][player_x][2] = true;
-            player[player_y][player_x][1] = false;
-            player[player_y][player_x][0] = false;
-            break;
-          case 2:
-            player_y++;
-            if(player[player_y][player_x][2])
-              dead = true;
-            player[player_y][player_x][2] = true;
-            player[player_y][player_x][1] = true;
-            player[player_y][player_x][0] = false;
-            break;
-          case 3:
-            player_x--;
-            if(player[player_y][player_x][2])
-              dead = true;
-            player[player_y][player_x][2] = true;
-            player[player_y][player_x][1] = false;
-            player[player_y][player_x][0] = true;
-        }
+        if(!dead)
+          switch(direction){
+            case 0:
+              player_y--;
+              if(player[player_y][player_x][2])
+                dead = true;
+              player[player_y][player_x][2] = true;
+              player[player_y][player_x][1] = true;
+              player[player_y][player_x][0] = true;
+              break;
+            case 1:
+              player_x++;
+              if(player[player_y][player_x][2])
+                dead = true;
+              player[player_y][player_x][2] = true;
+              player[player_y][player_x][1] = false;
+              player[player_y][player_x][0] = false;
+              break;
+            case 2:
+              player_y++;
+              if(player[player_y][player_x][2])
+                dead = true;
+              player[player_y][player_x][2] = true;
+              player[player_y][player_x][1] = true;
+              player[player_y][player_x][0] = false;
+              break;
+            case 3:
+              player_x--;
+              if(player[player_y][player_x][2])
+                dead = true;
+              player[player_y][player_x][2] = true;
+              player[player_y][player_x][1] = false;
+              player[player_y][player_x][0] = true;
+          }
         if(dead){
           if(player_x < 0)
             player_x = 0;
@@ -177,7 +178,11 @@ int main(){
     SDL_SetRenderDrawColor(renderer, 64, 0, 64, 255);
     SDL_RenderClear(renderer);
 
-    SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
+    if(!dead)
+      SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
+    else
+      SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    
     temp_x = player_x;
     temp_y = player_y;
     for(int i = 0; i < player_l; i++){
